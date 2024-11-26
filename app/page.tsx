@@ -1,101 +1,78 @@
-import Image from "next/image";
+"use client";
+import React, { useState } from 'react';
 
-export default function Home() {
+const HeroSection = () => {
+  const [isJumpScareVisible, setIsJumpScareVisible] = useState(false);
+
+  // Show the jump scare modal
+  const handleJumpScare = () => {
+    setIsJumpScareVisible(true);
+  };
+
+  // Close the jump scare modal
+  const closeJumpScare = () => {
+    setIsJumpScareVisible(false);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <section className="relative w-full h-screen overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        src="/images/h1.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls={false} // Hides the video controls
+      ></video>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Overlay Content */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex justify-center items-center text-center text-white">
+        <div className="space-y-5">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold font-creepster leading-tight mb-5 bg-gradient-to-r from-red-600 to-yellow-300 text-transparent bg-clip-text">
+            Tales That Will Keep You Up at Night
+          </h1>
+          <p className="text-lg opacity-40 md:text-2xl font-thin mb-8">
+            Dare to dive into the darkest corners of fear and mystery.
+            <br />
+            Can you handle the terror that lies within?
+          </p>
+          <br />
+          <button
+            onClick={handleJumpScare}
+            className="bg-gradient-to-r from-red-800 to-gray-950 text-white font-extralight py-2 px-10 rounded-md text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:bg-gradient-to-l"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Click At Your Own Risk
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      {/* Jump Scare Modal */}
+      {isJumpScareVisible && (
+        <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
+          <div className="relative w-full h-full">
+            {/* Jump Scare Video */}
+            <video
+              src="/images/jm.mp4" // Add your jump scare video path here
+              autoPlay
+              onEnded={closeJumpScare} // Automatically close after video ends
+              className="w-full h-full object-cover"
+              controls={false}
+            ></video>
+
+            {/* Close Button */}
+            <button
+              onClick={closeJumpScare}
+              className="absolute top-4 right-4 text-red-500 text-3xl font-bold hover:text-red-700"
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
   );
-}
+};
+
+export default HeroSection;
